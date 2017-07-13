@@ -1,12 +1,13 @@
 
-var Team = function(user, className) {
+var Team = function(user, className, elements) {
     this.user = user;
     this.className = className;
+    this.elements = elements;
 };
 
 (function() {
-    var redTeam = new Team('player', 'red-team');
-    var greenTeam = new Team('IA', 'green-team');
+    var redTeam = new Team('player', 'red-team', '<div></div>');
+    var greenTeam = new Team('IA', 'green-team', '<div><div></div><div></div></div>');
     var teams = [redTeam, greenTeam];
     var currentTeamIndex = 0;
     
@@ -61,8 +62,9 @@ $(document).ready(function() {
         var cell = $(event.currentTarget);
         cell.addClass(currentPlayer.className);
         cell.unbind('click');
+        $(morpion.teams[morpion.currentTeam].elements).appendTo(cell);
         if (morpion.hasWon()) {
-            console.debug(morpion.teams[morpion.currentTeam] + ' has won the game !');
+            console.debug(morpion.teams[morpion.currentTeam].user + ' has won the game !');
         } else {
             morpion.switchPlayer();
         }
