@@ -1,18 +1,16 @@
-$(document).ready(function() {
-    var Team = function(user, className) {
-        this.user = user;
-        this.className = className;
-    };
+
+var Team = function(user, className) {
+    this.user = user;
+    this.className = className;
+};
+
+(function() {
     var redTeam = new Team('player', 'red-team');
     var greenTeam = new Team('IA', 'green-team');
     var teams = [redTeam, greenTeam];
     var currentTeamIndex = 0;
     
-    function switchPlayer() {
-        currentTeamIndex = (currentTeamIndex + 1) % teams.length;
-    }
-    
-    function hasWon() {
+    var hasWon = function() {
         var data = [
             [],
             [],
@@ -31,6 +29,17 @@ $(document).ready(function() {
         // TODO: Vérifier les données pour savoir si un joueur a gagné.
     };
     
+    window.morpion = {
+        teams: teams,
+        currentTeam: currentTeamIndex,
+        switchPlayer: function() {
+            morpion.currentTeam = (morpion.currentTeam + 1) % morpion.teams.length;
+        },
+        hasWon : hasWon
+    };
+})();
+
+$(document).ready(function() {
     var cellListener = function(event) {
         var currentPlayer = teams[currentTeamIndex];
         var cell = $(event.currentTarget);
