@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="description" content="Page de template classique des applications J2EE">
+        <meta name="keywords" content="web,design,html,css,html5,development">
+        <title>Exemple de template HTML</title>
+        <link rel="stylesheet" href="application.css">
+        <link rel="stylesheet" href="morpion.css">
+        <script src="https://code.jquery.com/jquery-3.2.1.js"
+            integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE="
+            crossorigin="anonymous"></script>
+        <script src="morpion.js"></script>
+    </head>
+    <body>
+        <header>
+            <div id="banner">
+                <span id="company">SSII X</span>
+            </div>
+            <div>
+                <nav id="menu">
+                    <a id="menu-welcome" href="#" onclick="switchTab(event)">Accueil</a>
+                    <a id="menu-resourcecamp" href="#" onclick="switchTab(event)">Resource Camp</a>
+                    <a id="menu-management" href="#" onclick="switchTab(event)">MegaSuperAgile Management</a>
+                    <a id="menu-contact" href="#" onclick="switchTab(event)">Contact</a>
+                </nav>
+            </div>
+        </header>
+        <div id="content">
+            <article id="welcome">
+                <h1>Accueil</h1>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus venenatis, purus tempor luctus maximus, neque est interdum ligula, id consectetur ipsum elit ac lorem. Sed lacinia sollicitudin tortor sed accumsan. Morbi ut nisl hendrerit, porttitor mi vitae, elementum metus. Sed facilisis, risus sit amet dignissim viverra, tellus lacus imperdiet urna, sit amet dignissim enim felis eu enim. Fusce fermentum varius placerat. Etiam vitae orci et augue blandit euismod. Donec efficitur nec quam eget placerat. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque volutpat lacus suscipit sapien sagittis bibendum.</p>
+            </article>
+            <article id="resourcecamp">
+                <h1>Resouce Camp : outil de gestion RH</h1>
+                <p>Vestibulum et velit non eros commodo pulvinar at sed ligula. Aliquam turpis lacus, ultricies vitae mattis ac, elementum vitae sapien. Pellentesque suscipit iaculis enim. Pellentesque congue lorem nisl, in varius dui tristique ac. Nam sit amet rutrum nisl, at aliquet quam. Curabitur posuere, neque vitae luctus mollis, eros libero vulputate eros, quis ornare urna felis ut odio. Etiam gravida auctor varius. Nam mattis eros nec arcu lacinia, id commodo nibh bibendum. Sed diam erat, luctus in dui id, faucibus efficitur felis. Ut eleifend laoreet consectetur. Etiam leo justo, lobortis in ligula a, interdum pulvinar lorem. Vivamus ullamcorper consectetur dolor in rhoncus. Nam vel viverra neque, quis tristique felis.</p>
+            </article>
+            <article id="management">
+                <h1>MegaSuperAgile Management</h1>
+                <p>Mauris suscipit placerat accumsan. Aliquam ut enim suscipit, rhoncus justo vitae, efficitur libero. Morbi blandit, risus sit amet pellentesque condimentum, sem metus euismod eros, et porta eros tellus bibendum leo. Nam volutpat, magna sit amet gravida euismod, metus ante tristique dui, eu efficitur mauris erat vel ante. Nam eget pretium orci, a tempus urna. Nulla et congue urna. Aliquam massa dui, volutpat eu dignissim ac, volutpat a nulla. Nam ut ex quis leo accumsan tincidunt vehicula ac justo. Integer id odio sed nibh gravida dignissim. Pellentesque convallis, nisl sit amet euismod semper, velit orci dignissim justo, sed hendrerit risus tortor quis sem. Aenean sit amet pretium justo. Cras eu dolor hendrerit, vestibulum lorem dapibus, fermentum justo.</p>
+                <p>In hac habitasse platea dictumst. Sed feugiat ex sollicitudin ligula placerat, ut pharetra justo pulvinar. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent eu risus non nunc posuere mattis euismod nec tellus. Praesent ultricies luctus eros, eu porttitor sapien faucibus sed. Etiam id eros leo. Donec porttitor gravida malesuada.</p>
+            </article>
+            <article id="contact">
+                <h1>Jouer au morpion : </h1>
+                <div id="morpion-wrapper">
+                    <table id="morpion">
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                    </table>
+                </div>
+            </article>
+        </div>
+        <footer>
+            2017 - Formation Java J2EE Angular
+        </footer>
+        <script type="text/javascript"
+            src="application.js"></script>
+    </body>
+</html>

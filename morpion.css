@@ -1,0 +1,31 @@
+div#morpion-wrapper {
+    width: 300px;
+    margin: auto;
+}
+
+table#morpion {
+    background-color: white;
+    border: 1px black solid;
+}
+
+table#morpion tr {
+    height: 100px;
+}
+
+table#morpion tr td {
+    width: 100px;
+    border: 1px black solid;
+}
+
+table#morpion tr td:hover {
+    cursor: pointer;
+    background-color: #b3c8db;
+}
+
+table#morpion tr td.green-team {
+    background-color: green;
+}
+
+table#morpion tr td.red-team {
+    background-color: red;
+}
