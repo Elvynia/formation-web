@@ -14,6 +14,23 @@ var Team = function(user, className, elements) {
     function cellMatches(cell1, cell2, cell3) {
         return cell1 >= 0 && cell1 === cell2 && cell1 === cell3;
     }
+
+    var cellListener = function(event) {
+        var currentPlayer = morpion.teams[morpion.currentTeam];
+        var cell = $(event.currentTarget);
+        cell.addClass(currentPlayer.className);
+        cell.unbind('click');
+        $(morpion.teams[morpion.currentTeam].elements).appendTo(cell);
+        if (morpion.hasWon()) {
+            $('table#morpion').hide();
+            var results = $('div#results');
+            results.append('<h2>' + morpion.teams[morpion.currentTeam].user + ' has won the game !</h2>');
+            results.append('<button onclick="morpion.initialize(true)">Recommencer</button>');
+            results.show();
+        } else {
+            morpion.switchPlayer();
+        }
+    };
     
     var hasWon = function() {
         var data = [
@@ -45,6 +62,26 @@ var Team = function(user, className, elements) {
         
         return won;
     };
+
+    var initialize = function(reinitialize) {
+        $('table#morpion tr td').each(function(index, item) {
+            var cell = $(item);
+            if (reinitialize) {
+                cell.empty();
+                cell.removeClass(morpion.teams[0].className);
+                cell.removeClass(morpion.teams[1].className);
+                cell.unbind();
+            }
+            cell.click(function(event) {
+                morpion.cellListener(event);
+            });
+        });
+        if (reinitialize) {
+            $('table#morpion').show();
+            $('div#results').empty();
+            $('div#results').hide();
+        }
+    }
     
     window.morpion = {
         teams: teams,
@@ -52,27 +89,12 @@ var Team = function(user, className, elements) {
         switchPlayer: function() {
             morpion.currentTeam = (morpion.currentTeam + 1) % morpion.teams.length;
         },
-        hasWon : hasWon
+        hasWon : hasWon,
+        cellListener: cellListener,
+        initialize: initialize
     };
 })();
 
 $(document).ready(function() {
-    var cellListener = function(event) {
-        var currentPlayer = morpion.teams[morpion.currentTeam];
-        var cell = $(event.currentTarget);
-        cell.addClass(currentPlayer.className);
-        cell.unbind('click');
-        $(morpion.teams[morpion.currentTeam].elements).appendTo(cell);
-        if (morpion.hasWon()) {
-            console.debug(morpion.teams[morpion.currentTeam].user + ' has won the game !');
-        } else {
-            morpion.switchPlayer();
-        }
-    };
-    
-    $('table#morpion tr td').each(function(index, cell) {
-        $(cell).click(function(event) {
-            cellListener(event);
-        });
-    });
+    morpion.initialize();
 });

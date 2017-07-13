@@ -1,11 +1,13 @@
 div#morpion-wrapper {
-    width: 300px;
+    width: 80%;
     margin: auto;
 }
 
 table#morpion {
+    width: 300px;
     background-color: white;
     border: 1px black solid;
+    margin: auto;
 }
 
 table#morpion tr {
@@ -51,4 +53,18 @@ table#morpion tr td.red-team > div {
     border: 10px solid red;
     border-radius: 50%;
     margin: auto;
+}
+
+div#results h2 {
+    font-size: 3rem;
+    color: darkred;
+    width: 100%;
+    text-align: center;
+}
+
+div#results button {
+    font-size: 1.5rem;
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%, 0);
 }
