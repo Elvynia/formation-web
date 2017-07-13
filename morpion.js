@@ -15,6 +15,14 @@ var Team = function(user, className, elements) {
         return cell1 >= 0 && cell1 === cell2 && cell1 === cell3;
     }
 
+    function showResults(title) {
+        $('table#morpion').hide();
+        var results = $('div#results');
+        results.append('<h2>' + title + '</h2>');
+        results.append('<button onclick="morpion.initialize(true)">Recommencer</button>');
+        results.show();
+    }
+
     var cellListener = function(event) {
         var currentPlayer = morpion.teams[morpion.currentTeam];
         var cell = $(event.currentTarget);
@@ -22,11 +30,9 @@ var Team = function(user, className, elements) {
         cell.unbind('click');
         $(morpion.teams[morpion.currentTeam].elements).appendTo(cell);
         if (morpion.hasWon()) {
-            $('table#morpion').hide();
-            var results = $('div#results');
-            results.append('<h2>' + morpion.teams[morpion.currentTeam].user + ' has won the game !</h2>');
-            results.append('<button onclick="morpion.initialize(true)">Recommencer</button>');
-            results.show();
+            showResults(morpion.teams[morpion.currentTeam].user + ' has won the game !');
+        } else if (morpion.isDraw) {
+            showResults('Draw game...');
         } else {
             morpion.switchPlayer();
         }
@@ -38,6 +44,7 @@ var Team = function(user, className, elements) {
             [],
             []
         ];
+        var dataCount = 0;
         var table = $('table#morpion')[0];
         var tbody = table.tBodies[0];
         for (var i = 0; i < tbody.children.length; ++i) {
@@ -46,6 +53,9 @@ var Team = function(user, className, elements) {
                 var cell = line.children[j];
                 data[i][j] = $(cell).hasClass(teams[0].className) ? 0 : 
                     ($(cell).hasClass(teams[1].className) ? 1 : -1);
+                if (data[i][j] >= 0) {
+                    ++dataCount;
+                }
             }
         }
         // Vérification des lignes.
@@ -59,7 +69,8 @@ var Team = function(user, className, elements) {
         // Vérification des diagonales.
         won = won || cellMatches(data[0][0], data[1][1], data[2][2]);
         won = won || cellMatches(data[0][2], data[1][1], data[2][0]);
-        
+        // Vérification du match nul.
+        morpion.isDraw = dataCount === 9;
         return won;
     };
 
@@ -80,10 +91,12 @@ var Team = function(user, className, elements) {
             $('table#morpion').show();
             $('div#results').empty();
             $('div#results').hide();
+            morpion.isDraw = false;
         }
     }
     
     window.morpion = {
+        isDraw: false,
         teams: teams,
         currentTeam: currentTeamIndex,
         switchPlayer: function() {
