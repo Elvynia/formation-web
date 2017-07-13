@@ -10,6 +10,10 @@ var Team = function(user, className) {
     var teams = [redTeam, greenTeam];
     var currentTeamIndex = 0;
     
+    function cellMatches(cell1, cell2, cell3) {
+        return cell1 >= 0 && cell1 === cell2 && cell1 === cell3;
+    }
+    
     var hasWon = function() {
         var data = [
             [],
@@ -17,7 +21,7 @@ var Team = function(user, className) {
             []
         ];
         var table = $('table#morpion')[0];
-        var tbody = table.tbodies[0];
+        var tbody = table.tBodies[0];
         for (var i = 0; i < tbody.children.length; ++i) {
             var line = tbody.children[i];
             for (var j = 0; j < line.children.length; ++j) {
@@ -26,7 +30,19 @@ var Team = function(user, className) {
                     ($(cell).hasClass(teams[1].className) ? 1 : -1);
             }
         }
-        // TODO: Vérifier les données pour savoir si un joueur a gagné.
+        // Vérification des lignes.
+        var won = cellMatches.apply(this, data[0]);
+        won = won || cellMatches.apply(this, data[1]);
+        won = won || cellMatches.apply(this, data[2]);
+        // Vérification des colonnes.
+        won = won || cellMatches(data[0][0], data[1][0], data[2][0]);
+        won = won || cellMatches(data[0][1], data[1][1], data[2][1]);
+        won = won || cellMatches(data[0][2], data[1][2], data[2][2]);
+        // Vérification des diagonales.
+        won = won || cellMatches(data[0][0], data[1][1], data[2][2]);
+        won = won || cellMatches(data[0][2], data[1][1], data[2][0]);
+        
+        return won;
     };
     
     window.morpion = {
@@ -41,11 +57,15 @@ var Team = function(user, className) {
 
 $(document).ready(function() {
     var cellListener = function(event) {
-        var currentPlayer = teams[currentTeamIndex];
+        var currentPlayer = morpion.teams[morpion.currentTeam];
         var cell = $(event.currentTarget);
         cell.addClass(currentPlayer.className);
         cell.unbind('click');
-        switchPlayer();
+        if (morpion.hasWon()) {
+            console.debug(morpion.teams[morpion.currentTeam] + ' has won the game !');
+        } else {
+            morpion.switchPlayer();
+        }
     };
     
     $('table#morpion tr td').each(function(index, cell) {
